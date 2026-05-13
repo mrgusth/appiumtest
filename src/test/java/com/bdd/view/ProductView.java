@@ -12,7 +12,7 @@ public class ProductView extends MobileBase {
         // Check if any product is visible in the list by looking for product containers by resource-id
         try {
             // Use resource-id to find product titles - more reliable than content-desc
-            String sXPath = "//*[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV']";
+            String sXPath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\"]";
             //String sXPath = "//android.widget.TextView[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV']";
             MobileElement productTitle = waitUntilVisibilityElement(5, getMobileElementByXPath(sXPath));
             return isObjectVisibleBySeconds(productTitle, 3);
@@ -27,7 +27,7 @@ public class ProductView extends MobileBase {
             try {
                 // Find product by exact text match using resource-id
                 // First, click on the product to open its detail view
-                String productXPath = "//*[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV' and @text='" + producto + "']";
+                String productXPath = "//android.widget.TextView[@resource-id=\"com.saucelabs.mydemoapp.android:id/titleTV\" and @text=\"" + producto + "\"]";
                 MobileElement productTitle = waitUntilVisibilityElement(5, getMobileElementByXPath(productXPath));
                 clickElement(productTitle);
 
@@ -41,15 +41,9 @@ public class ProductView extends MobileBase {
                     MobileElement addBtn = waitUntilVisibilityElement(3, getMobileElementByXPath(addBtnXPath));
                     clickElement(addBtn);
                 } catch (Exception e1) {
-                    // Alternative: look for any button with text "ADD"
-                    try {
-                        String addBtnXPath = "//android.widget.Button[@content-desc=\"Tap to add product to cart\"]";
-                        MobileElement addBtn = waitUntilVisibilityElement(3, getMobileElementByXPath(addBtnXPath));
-                        clickElement(addBtn);
-                    } catch (Exception e2) {
-                        System.out.println("Could not find add to cart button for product: " + producto);
-                    }
+                    System.out.println("Could not find add to cart button for product: " + producto);
                 }
+
 
                 // Go back to product list
                 try {
